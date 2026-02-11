@@ -175,7 +175,7 @@ function typeLine() {
       textElement.innerHTML += lines[lineIndex].charAt(charIndex);
       charIndex++;
       setTimeout(typeLine, speed);
-      window.scrollTo(0, document.body.scrollHeight);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     } else {
       textElement.innerHTML += "\n";
       lineIndex++;
@@ -184,7 +184,7 @@ function typeLine() {
     }
   } else {
     showConnectionStatus();
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 }
 
@@ -192,7 +192,7 @@ function showConnectionStatus() {
   const final = document.getElementById("finalMessage");
   final.innerHTML = "💍 Connection Status: <span class='forever'>FOREVER</span>";
   final.style.opacity = 1;
-  window.scrollTo(0, document.body.scrollHeight);
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
 
 typeLine();
@@ -222,6 +222,7 @@ function createPetal(){
 setInterval(createPetal,600);
 
 </script>
+
 
 </body>
 </html>
