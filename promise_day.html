@@ -119,6 +119,34 @@ h1 {
 }
 @keyframes fall { 0% { transform:translateY(-10vh) rotate(0deg); opacity:1; } 100% { transform:translateY(110vh) rotate(360deg); opacity:0; } }
 
+/* Cat GIF animation */
+.cat-kiss {
+  position: absolute;
+  width: 80px;
+  z-index: 3; /* Above hearts but below text container */
+  left: -100px; /* Start offscreen left */
+  top: 50%;
+  transform: translateY(-50%);
+  animation: moveCat 4s forwards;
+}
+
+@keyframes moveCat {
+  0% { left: -100px; top: 50%; transform: translateY(-50%) rotate(0deg); }
+  70% { left: calc(50% - 50px); top: calc(40%); transform: translateY(-50%) scale(1.1); }
+  100% { left: calc(50% - 50px); top: calc(40%); transform: translateY(-50%) scale(1); }
+}
+
+/* Optional: photo pulse when cat kisses */
+.photo.kissed {
+  animation: pulsePhoto 0.8s ease-in-out;
+}
+
+@keyframes pulsePhoto {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 </style>
 </head>
 
@@ -220,6 +248,29 @@ function createPetal(){
   setTimeout(()=>petal.remove(),9000);
 }
 setInterval(createPetal,600);
+
+// Add a cat GIF and make it "kiss" the photo
+function catKiss() {
+  const cat = document.createElement('img');
+  cat.src = 'cat.gif'; // Replace with your cute cat GIF
+  cat.className = 'cat-kiss';
+  document.body.appendChild(cat);
+
+  // Animate the photo when cat reaches it
+  const photo = document.querySelector('.photo');
+  setTimeout(() => {
+    photo.classList.add('kissed');
+  }, 2800); // Timing when cat is near photo
+
+  // Remove cat after animation
+  setTimeout(() => {
+    cat.remove();
+    photo.classList.remove('kissed');
+  }, 4000);
+}
+
+// Trigger the cat kiss after some lines have typed
+setTimeout(catKiss, 12000); // Adjust timing as needed
 
 </script>
 
