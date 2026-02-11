@@ -11,7 +11,7 @@
 html, body {
   min-height:100%;
   font-family:'Poppins', sans-serif;
-  background: radial-gradient(circle at center, #fff8f0 0%, #f0e7e1 70%);
+  background: radial-gradient(circle at center, #ffeef7 0%, #e0f7ff 70%);
   color:#333;
   overflow-y: auto;
 }
@@ -28,15 +28,14 @@ body {
   max-width:1000px;
   padding:60px 40px;
   border-radius:30px;
-  background:rgba(255, 255, 255, 0.7);
+  background:rgba(255, 255, 255, 0.8);
   backdrop-filter:blur(15px);
-  box-shadow:0 0 50px rgba(255,215,0,0.4);
+  box-shadow:0 0 50px rgba(255, 215, 0, 0.5); /* golden glow */
   text-align:center;
   animation:fadeIn 3s ease forwards;
   opacity:0;
 }
 
-/* Floating Hearts and Petals in background */
 .bg-layer {
   position: fixed;
   top:0; left:0;
@@ -51,7 +50,8 @@ body {
 h1 {
   font-family:'Great Vibes', cursive;
   font-size:60px;
-  color:goldenrod;
+  color:#ff69b4; /* pink */
+  text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
   margin-bottom:20px;
 }
 
@@ -77,17 +77,17 @@ h1 {
   line-height:1.9;
   margin-top:30px;
   white-space:pre-line;
-  border-right:2px solid goldenrod;
+  border-right:2px solid gold;
   display:inline-block;
   padding-right:5px;
   text-align:left;
-  color:#444;
+  color:#555;
 }
 
 .final {
   margin-top:40px;
   font-size:28px;
-  color:goldenrod;
+  color:gold;
   opacity:0;
   transition:opacity 2s ease;
 }
@@ -95,16 +95,16 @@ h1 {
 .forever {
   color: gold;
   font-weight: bold;
-  text-shadow: 0 0 15px gold, 0 0 30px gold;
+  text-shadow: 0 0 20px gold, 0 0 40px gold;
   animation: pulse 1.5s infinite alternate;
 }
 
-@keyframes pulse { from { text-shadow:0 0 10px gold; } to { text-shadow:0 0 30px gold,0 0 60px gold; } }
+@keyframes pulse { from { text-shadow:0 0 10px gold; } to { text-shadow:0 0 40px gold,0 0 80px gold; } }
 
 /* Hearts & Petals */
 .heart {
   position:absolute;
-  color:#ff4d6d;
+  color:#ff69b4; /* pink */
   font-size:20px;
   animation:floatHearts 6s linear infinite;
 }
@@ -113,7 +113,7 @@ h1 {
 .petal {
   position:absolute;
   width:15px; height:15px;
-  background:pink;
+  background: #87cefa; /* light blue */
   border-radius:50% 50% 50% 0;
   transform:rotate(45deg);
   animation:fall 8s linear infinite;
@@ -140,7 +140,7 @@ h1 {
 </div>
 
 <audio autoplay loop>
-  <source src="your-music.mp3" type="audio/mpeg">
+  <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
 <script>
