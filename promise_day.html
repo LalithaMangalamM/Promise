@@ -8,21 +8,25 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
-body {
-  min-height:100vh;
+html, body {
+  min-height:100%;
   font-family:'Poppins', sans-serif;
   background: radial-gradient(circle at center, #2b0000 0%, #000 70%);
   color:white;
-  overflow-y: auto; /* Enable scrolling */
-  padding: 20px;
+  overflow-y: auto;
 }
 
-/* Luxury Container */
+body {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Container adapts to content */
 .container {
-  position:relative;
+  width:90%;
   max-width:1000px;
-  margin:0 auto;
-  padding:60px;
+  padding:60px 40px;
   border-radius:30px;
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(25px);
@@ -32,9 +36,17 @@ body {
   opacity:0;
 }
 
-@keyframes fadeIn {
-  to { opacity:1; }
+/* Floating Hearts and Petals in background */
+.bg-layer {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events: none; /* So scroll works */
+  overflow: hidden;
+  z-index:0;
 }
+
+@keyframes fadeIn { to { opacity:1; } }
 
 h1 {
   font-family:'Great Vibes', cursive;
@@ -43,7 +55,6 @@ h1 {
   margin-bottom:20px;
 }
 
-/* Photo */
 .photo {
   width:220px;
   height:220px;
@@ -53,20 +64,14 @@ h1 {
   border:5px solid gold;
   box-shadow:0 0 40px gold;
   animation:float 4s ease-in-out infinite;
+  z-index:1;
+  position:relative;
 }
 
-.photo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+.photo img { width:100%; height:100%; object-fit:cover; }
 
-@keyframes float {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-15px); }
-}
+@keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-15px); } }
 
-/* Typing Message */
 .message {
   font-size:22px;
   line-height:1.9;
@@ -75,10 +80,9 @@ h1 {
   border-right:2px solid gold;
   display:inline-block;
   padding-right:5px;
-  text-align:left; /* Makes multi-line look nice */
+  text-align:left;
 }
 
-/* Final Line */
 .final {
   margin-top:40px;
   font-size:28px;
@@ -94,43 +98,34 @@ h1 {
   animation: pulse 1.5s infinite alternate;
 }
 
-@keyframes pulse {
-  from { text-shadow: 0 0 10px gold; }
-  to { text-shadow: 0 0 40px gold, 0 0 80px gold; }
-}
+@keyframes pulse { from { text-shadow:0 0 10px gold; } to { text-shadow:0 0 40px gold,0 0 80px gold; } }
 
-/* Floating Hearts */
+/* Hearts & Petals */
 .heart {
   position:absolute;
   color:#ff4d6d;
   font-size:20px;
   animation:floatHearts 6s linear infinite;
 }
+@keyframes floatHearts { 0% { transform:translateY(100vh) scale(1); opacity:1; } 100% { transform:translateY(-10vh) scale(1.5); opacity:0; } }
 
-@keyframes floatHearts {
-  0% { transform:translateY(100vh) scale(1); opacity:1; }
-  100% { transform:translateY(-10vh) scale(1.5); opacity:0; }
-}
-
-/* Rose Petals */
 .petal {
   position:absolute;
-  width:15px;
-  height:15px;
+  width:15px; height:15px;
   background:red;
   border-radius:50% 50% 50% 0;
   transform:rotate(45deg);
   animation:fall 8s linear infinite;
 }
+@keyframes fall { 0% { transform:translateY(-10vh) rotate(0deg); opacity:1; } 100% { transform:translateY(110vh) rotate(360deg); opacity:0; } }
 
-@keyframes fall {
-  0% { transform:translateY(-10vh) rotate(0deg); opacity:1; }
-  100% { transform:translateY(110vh) rotate(360deg); opacity:0; }
-}
 </style>
 </head>
 
 <body>
+
+<!-- Background Layer for hearts & petals -->
+<div class="bg-layer"></div>
 
 <div class="container">
   <h1>Happy Promise Day ❤️</h1>
@@ -149,7 +144,6 @@ h1 {
 </audio>
 
 <script>
-/* Romantic Promise Lines */
 const lines = [
 "Booting Love System...",
 "Loading Beautiful Memories...",
@@ -171,18 +165,16 @@ const lines = [
 "Establishing Lifetime Connection..."
 ];
 
-let lineIndex = 0;
-let charIndex = 0;
+let lineIndex = 0, charIndex = 0;
 const speed = 40;
 const textElement = document.getElementById("text");
 
 function typeLine() {
-  if (lineIndex < lines.length) {
-    if (charIndex < lines[lineIndex].length) {
+  if(lineIndex < lines.length){
+    if(charIndex < lines[lineIndex].length){
       textElement.innerHTML += lines[lineIndex].charAt(charIndex);
       charIndex++;
       setTimeout(typeLine, speed);
-      // Scroll page as text grows
       window.scrollTo(0, document.body.scrollHeight);
     } else {
       textElement.innerHTML += "\n";
@@ -205,28 +197,29 @@ function showConnectionStatus() {
 
 typeLine();
 
-/* Floating Hearts */
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "❤";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 7000);
-}
-setInterval(createHeart, 400);
+/* Hearts & Petals */
+const bgLayer = document.querySelector('.bg-layer');
 
-/* Rose Petals */
-function createPetal() {
-  const petal = document.createElement("div");
-  petal.classList.add("petal");
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = (5 + Math.random() * 5) + "s";
-  document.body.appendChild(petal);
-  setTimeout(() => petal.remove(), 9000);
+function createHeart(){
+  const heart = document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='❤';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.animationDuration=(4+Math.random()*4)+'s';
+  bgLayer.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
 }
-setInterval(createPetal, 600);
+setInterval(createHeart,400);
+
+function createPetal(){
+  const petal=document.createElement('div');
+  petal.className='petal';
+  petal.style.left=Math.random()*100+'vw';
+  petal.style.animationDuration=(5+Math.random()*5)+'s';
+  bgLayer.appendChild(petal);
+  setTimeout(()=>petal.remove(),9000);
+}
+setInterval(createPetal,600);
 
 </script>
 
